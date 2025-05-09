@@ -1,0 +1,118 @@
+{
+  "nav": {
+    "home": "THỨ NGÔI",
+    "about": "HÀNG GIÁ",
+    "products": "PHÁP LÝ",
+    "contact": "HSGD"
+  },
+  "phone": {
+    "label": "TƯ VẤN",
+    "number": "0961 793 135"
+  },
+  "hero": {
+    "title": "Thiết bị bảo cháy thông minh GSafe",
+    "subtitle": "Bảo vệ tài sản và sinh mạng của bạn bằng công nghệ báo cháy hiện đại",
+    "cta1": "NHẬN TƯ VẤN",
+    "cta2": "MUA NGAY"
+  },
+  "pricing": {
+    "title": "Bảng giá thiết bị & Dịch vụ",
+    "subtitle": "Lựa chọn gói dịch vụ phù hợp với nhu cầu của bạn",
+    "viewDetails": "XEM CHI TIẾT",
+    "features": {
+      "fireAlert": "Truyền tin cảnh báo cháy",
+      "autoShutdown": "Tương thích thiết bị báo cháy",
+      "remoteControl": "Điều khiển Cắt điện từ mọi nơi"
+    },
+    "price": {
+      "prefix": "Giá gói cước từ đầu",
+      "warranty": "Thiết bị",
+      "subscription": "Các thiết bị này đều sử dụng những gói cước nhỏ nhất từ bảo hiểm báo cháy"
+    }
+  },
+  "features": {
+    "title": "TÍNH NĂNG CHUNG CỦA TẤT CẢ CÁC GÓI",
+    "support247": "Hỗ trợ khách hàng 24/7",
+    "pccc": "Kết nối trực tiếp với trung tâm thông báo cháy của PCCC",
+    "monitoring": "Giám sát trực tuyến tình trạng hoạt động của thiết bị"
+  },
+  "clients": {
+    "title": "Đã và đang được lựa chọn bởi",
+    "testimonial": {
+      "text": "GSafe đã giúp chúng tôi nâng cao tiêu chuẩn an toàn PCCC tại tất cả các dự án bất động sản. Hệ thống thông minh và đáng tin cậy.",
+      "author": "Nguyễn Văn A",
+      "position": "Giám đốc công ty XYZ"
+    }
+  },
+  "benefits": {
+    "title": "Thiết bị báo cáo sự cố",
+    "subtitle": "GSafe cung cấp giải pháp báo cháy thông minh kết nối trực tiếp với các trung tâm của PCCC, giúp phát hiện sớm và xử lý kịp thời các sự cố cháy nổ, bảo vệ tài sản và sinh mạng",
+    "detection": {
+      "title": "Kết nối 4G",
+      "description": "Kết thông qua mạng di động để truyền tin báo cháy đến trung tâm PCCC và đội ngũ hỗ trợ"
+    },
+    "alert": {
+      "title": "Tự động báo cháy",
+      "description": "Tự động phát hiện và gửi cảnh báo khi có sự cố cháy nổ, giúp xử lý kịp thời"
+    },
+    "mobile": {
+      "title": "Ứng dụng di động",
+      "description": "Theo dõi và điều khiển thiết bị từ xa thông qua ứng dụng di động"
+    },
+    "battery": {
+      "title": "Pin dự phòng",
+      "description": "Đảm bảo hoạt động liên tục khi mất điện, tăng độ an toàn"
+    }
+  },
+  "howItWorks": {
+    "title": "CÁCH THỨC HOẠT ĐỘNG",
+    "step1": {
+      "title": "Phát hiện sự cố",
+      "description": "Thiết bị tự động phát hiện khi có dấu hiệu cháy nổ"
+    },
+    "step2": {
+      "title": "Truyền tin hiệu",
+      "description": "Gửi báo hiệu qua mạng 4G đến trung tâm"
+    },
+    "step3": {
+      "title": "Cảnh báo",
+      "description": "Thông báo đến người dùng và PCCC"
+    },
+    "step4": {
+      "title": "Ứng cứu",
+      "description": "Đội ngũ PCCC nhanh chóng đến hiện trường xử lý"
+    }
+  },
+  "specs": {
+    "title": "Thông số kỹ thuật",
+    "wifi": "Kết nối 4G, LTE, Wi-Fi",
+    "power": "Nguồn điện 220V, pin dự phòng 24h",
+    "material": "Chất liệu: Nhựa, ABS chống cháy PP/GF20",
+    "size": "Kích thước: 300mm x 140mm x 60mm"
+  },
+  "benefits2": {
+    "title": "Lợi ích",
+    "safety": "Phát hiện sớm và cảnh báo kịp thời sự cố cháy",
+    "property": "Giảm thiểu thiệt hại về người và tài sản",
+    "compliance": "Tuân thủ quy định PCCC và bảo hiểm",
+    "monitoring": "Giám sát từ xa tình trạng của PCCC của tòa nhà"
+  },
+  "footer": {
+    "company": "Công ty",
+    "about": "Thông tin",
+    "address": "Tầng 8, Tòa nhà ABC, 123 Đại lộ Thăng Long, Hà Nội, Việt Nam",
+    "email": "Email: support@gsafe.com.vn",
+    "hotline": "Hotline: 028 7108 9999",
+    "service": "Hotline bán hàng: 1900 232 354",
+    "partners": "Đối tác",
+    "construction": "Công ty CP Xây dựng",
+    "pccc": "Cục PCCC & CNCH",
+    "tech": "Tech Solutions",
+    "insurance": "Bảo hiểm an toàn",
+    "copyright": "Copyright © 2024 GEIC. All rights reserved."
+  },
+  "Index": {
+    "title": "Chào mừng",
+    "description": "Đây là trang chủ"
+  }
+}

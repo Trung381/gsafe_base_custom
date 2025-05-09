@@ -1,0 +1,118 @@
+{
+  "nav": {
+    "home": "HOME",
+    "about": "PRICING",
+    "products": "LEGAL",
+    "contact": "DOCS"
+  },
+  "phone": {
+    "label": "CONSULT",
+    "number": "0961 793 135"
+  },
+  "hero": {
+    "title": "Smart Fire Protection Device GSafe",
+    "subtitle": "Protect your property and life with modern fire alarm technology",
+    "cta1": "GET ADVICE",
+    "cta2": "BUY NOW"
+  },
+  "pricing": {
+    "title": "Equipment & Service Pricing",
+    "subtitle": "Choose a service package that suits your needs",
+    "viewDetails": "VIEW DETAILS",
+    "features": {
+      "fireAlert": "Fire alert transmission",
+      "autoShutdown": "Compatible with fire alarm devices",
+      "remoteControl": "Remote power control from anywhere"
+    },
+    "price": {
+      "prefix": "Package price from",
+      "warranty": "Device",
+      "subscription": "These devices use the smallest package from fire insurance"
+    }
+  },
+  "features": {
+    "title": "COMMON FEATURES OF ALL PACKAGES",
+    "support247": "24/7 customer support",
+    "pccc": "Direct connection to the fire department notification center",
+    "monitoring": "Online monitoring of device operation status"
+  },
+  "clients": {
+    "title": "Chosen by",
+    "testimonial": {
+      "text": "GSafe has helped us improve fire safety standards in all our real estate projects. The system is smart and reliable.",
+      "author": "John Smith",
+      "position": "Director of XYZ Company"
+    }
+  },
+  "benefits": {
+    "title": "Incident Reporting Device",
+    "subtitle": "GSafe provides smart fire alarm solutions that connect directly to fire department centers, helping to detect early and handle fire incidents promptly, protecting property and life",
+    "detection": {
+      "title": "4G Connection",
+      "description": "Connect via mobile network to transmit fire alarms to the fire department and support team"
+    },
+    "alert": {
+      "title": "Automatic Fire Alert",
+      "description": "Automatically detect and send alerts when fire incidents occur, helping to handle them promptly"
+    },
+    "mobile": {
+      "title": "Mobile Application",
+      "description": "Monitor and control devices remotely through mobile application"
+    },
+    "battery": {
+      "title": "Backup Battery",
+      "description": "Ensure continuous operation during power outages, increasing safety"
+    }
+  },
+  "howItWorks": {
+    "title": "HOW IT WORKS",
+    "step1": {
+      "title": "Incident Detection",
+      "description": "Device automatically detects when there are signs of fire"
+    },
+    "step2": {
+      "title": "Signal Transmission",
+      "description": "Send signals via 4G network to the center"
+    },
+    "step3": {
+      "title": "Alert",
+      "description": "Notify users and fire department"
+    },
+    "step4": {
+      "title": "Response",
+      "description": "Fire department team quickly arrives at the scene"
+    }
+  },
+  "specs": {
+    "title": "Technical Specifications",
+    "wifi": "4G, LTE, Wi-Fi connection",
+    "power": "220V power supply, 24h backup battery",
+    "material": "Material: Plastic, ABS fire-resistant PP/GF20",
+    "size": "Dimensions: 300mm x 140mm x 60mm"
+  },
+  "benefits2": {
+    "title": "Benefits",
+    "safety": "Early detection and timely warning of fire incidents",
+    "property": "Minimize damage to people and property",
+    "compliance": "Comply with fire safety regulations and insurance",
+    "monitoring": "Remote monitoring of building fire safety status"
+  },
+  "footer": {
+    "company": "Company",
+    "about": "Information",
+    "address": "8th Floor, ABC Building, 123 Thang Long Avenue, Hanoi, Vietnam",
+    "email": "Email: support@gsafe.com.vn",
+    "hotline": "Hotline: 028 7108 9999",
+    "service": "Sales Hotline: 1900 232 354",
+    "partners": "Partners",
+    "construction": "Construction Company",
+    "pccc": "Fire Department & Rescue",
+    "tech": "Tech Solutions",
+    "insurance": "Safety Insurance",
+    "copyright": "Copyright © 2024 GEIC. All rights reserved."
+  },
+  "Index": {
+    "title": "Welcome",
+    "description": "This is the homepage"
+  }
+}
