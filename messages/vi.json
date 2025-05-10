@@ -1,10 +1,10 @@
 {
   "viewDetails": "Xem chi tiết",
   "nav": {
-    "home": "THỨ NGÔI",
-    "about": "HÀNG GIÁ",
-    "products": "PHÁP LÝ",
-    "contact": "HSGD"
+    "openLetter": "THƯ NGỎ",
+    "pricesList": "BẢNG GIÁ",
+    "legal": "PHÁP LÝ",
+    "guide": "HSGD"
   },
   "phone": {
     "label": "TƯ VẤN",
@@ -18,7 +18,24 @@
   },
   "pricing": {
     "title": "Bảng giá thiết bị & Dịch vụ",
-    "subtitle": "Lựa chọn gói dịch vụ phù hợp với nhu cầu của bạn"
+    "subtitle": "Lựa chọn gói dịch vụ phù hợp với nhu cầu của bạn",
+    "registerButton": "ĐĂNG KÝ",
+    "vatNote": "Chưa bao gồm VAT",
+    "per12Months": "12 tháng",
+    "modelFeatures": {
+      "oneTimeMaintenance": "1 lần bảo trì thiết bị/năm",
+      "twoMobileAccounts": "2 tài khoản truy cập ứng dụng mobile",
+      "twoNotificationNumbers": "2 số điện thoại nhận tin nhắn cảnh báo cháy",
+      "fiveMobileAccounts": "5 tài khoản truy cập ứng dụng mobile",
+      "fiveNotificationNumbers": "5 số điện thoại nhận tin nhắn cảnh báo cháy",
+      "twoTimeMaintenance": "2 lần bảo trì thiết bị/năm",
+      "tenMobileAccounts": "10 tài khoản truy cập ứng dụng mobile",
+      "tenNotificationNumbers": "10 số điện thoại nhận tin nhắn cảnh báo cháy"
+    },
+    "note": {
+      "prefix": "Lưu ý",
+      "content": " Gói cước GSafe Priority chỉ dành cho các công trình là cơ sở giáo dục, y tế công lập."
+    }
   },
   "modelG6": {
     "title": "MODEL G6",
@@ -42,12 +59,22 @@
     "monitoring": "Giám sát trực tuyến tình trạng hoạt động của thiết bị",
     "sim": "Sim data 4G"
   },
+
+  
+
   "clients": {
     "title": "Đã và đang được lựa chọn bởi",
     "testimonial": {
       "text": "GSafe đã giúp chúng tôi nâng cao tiêu chuẩn an toàn PCCC tại tất cả các dự án bất động sản. Hệ thống thông minh và đáng tin cậy.",
       "author": "Nguyễn Văn A",
       "position": "Giám đốc công ty XYZ"
+    },
+    "labels": {
+      "construction": "Công ty CP Xây dựng",
+      "pccc": "Cục PCCC & CNCH",
+      "tech": "Tech Solutions",
+      "insurance":"Bảo hiểm an toàn",
+      "smartCity": "VN Smart City"
     }
   },
   "benefits": {

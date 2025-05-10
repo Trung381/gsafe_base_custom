@@ -1,10 +1,10 @@
 {
   "viewDetails": "View Details",
   "nav": {
-    "home": "HOME",
-    "about": "PRICING",
-    "products": "LEGAL",
-    "contact": "DOCS"
+    "openLetter": "OPEN LETTER",
+    "pricesList": "PRICES LIST",
+    "legal": "LEGAL",
+    "guide": "USER GUIDE"
   },
   "phone": {
     "label": "CONSULT",
@@ -18,7 +18,24 @@
   },
   "pricing": {
     "title": "Equipment & Service Pricing",
-    "subtitle": "Choose a service package that suits your needs"
+    "subtitle": "Choose a service package that suits your needs",
+    "registerButton": "REGISTER",
+    "vatNote": "VAT not included",
+    "per12Months": "per 12 months",
+    "modelFeatures": {
+      "oneTimeMaintenance": "1 device maintenance per year",
+      "twoMobileAccounts": "2 mobile app access accounts",
+      "twoNotificationNumbers": "2 phone numbers for fire alert notifications",
+      "fiveMobileAccounts": "5 mobile app access accounts",
+      "fiveNotificationNumbers": "5 phone numbers for fire alert notifications",
+      "twoTimeMaintenance": "2 device maintenances per year",
+      "tenMobileAccounts": "10 mobile app access accounts",
+      "tenNotificationNumbers": "10 phone numbers for fire alert notifications"
+    },
+    "note": {
+    "prefix": "Note",
+    "content": "The GSafe Priority package is only available for public educational and healthcare institutions."
+    }
   },
   "modelG6": {
     "title": "MODEL G6",
@@ -48,7 +65,15 @@
       "text": "GSafe has helped us improve fire safety standards in all our real estate projects. The system is smart and reliable.",
       "author": "John Smith",
       "position": "Director of XYZ Company"
+    },
+    "labels": {
+      "construction": "Construction Joint Stock Company",
+      "pccc": "Fire Prevention & Rescue Department",
+      "tech": "Tech Solutions",
+      "insurance": "Safety Insurance",
+      "smartCity": "VN Smart City"
     }
+
   },
   "benefits": {
     "title": "Incident Reporting Device",
