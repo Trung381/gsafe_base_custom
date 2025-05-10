@@ -45,23 +45,24 @@ export default function Hero() {
             </Link>
           </div> */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button
+            {/* <Button
               href="/contact"
               variant="default"
               size="lg"
               className="bg-white text-primary hover:bg-white/90"
               icon={<Contact className="fill-current ml-2" />}
             >
-              {t("contact")}
-            </Button>
+              {t("cta1")}
+            </Button> */}
+            
             <Button
               href="/buy"
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white/10"
-              icon={<Shopping className="fill-current ml-2" />}
+              className="rounded-2xl border border-[#0267AB] text-[#0267AB] hover:bg-[#0267AB] hover:text-white group"
+              icon={<Shopping className="mr-2 w-5 h-5" />}
             >
-              {t("buy")}
+              {t("cta2")}
             </Button>
           </div>
         </div>

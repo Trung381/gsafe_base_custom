@@ -1,4 +1,5 @@
 {
+  "viewDetails": "Xem chi tiết",
   "nav": {
     "home": "THỨ NGÔI",
     "about": "HÀNG GIÁ",
@@ -17,24 +18,29 @@
   },
   "pricing": {
     "title": "Bảng giá thiết bị & Dịch vụ",
-    "subtitle": "Lựa chọn gói dịch vụ phù hợp với nhu cầu của bạn",
-    "viewDetails": "XEM CHI TIẾT",
+    "subtitle": "Lựa chọn gói dịch vụ phù hợp với nhu cầu của bạn"
+  },
+  "modelG6": {
+    "title": "MODEL G6",
+    "price": "6.600.000 VND",
+    "productSuffix": "Sản Phẩm",
     "features": {
       "fireAlert": "Truyền tin cảnh báo cháy",
-      "autoShutdown": "Tương thích thiết bị báo cháy",
-      "remoteControl": "Điều khiển Cắt điện từ mọi nơi"
+      "compatible": "Tương thích 99% tủ báo cháy",
+      "largeScale": "Thích hợp Cơ Sở quy mô lớn"
     },
-    "price": {
-      "prefix": "Giá gói cước từ đầu",
-      "warranty": "Thiết bị",
-      "subscription": "Các thiết bị này đều sử dụng những gói cước nhỏ nhất từ bảo hiểm báo cháy"
-    }
+    "fromDeviceTwo" : "Từ 2 thiết bị",
+    "perMonth" : "Tháng",
+    "perDevice" : "Thiết bị",
+    "pricePrefix" : "Giá gói cước ưu đãi:",
+    "subscription" : "Các thiết bị này sẽ sử dụng chung gói cước như thiết bị đầu tiên( bao gồm tính năng và quyền lợi tương đương)"
   },
   "features": {
     "title": "TÍNH NĂNG CHUNG CỦA TẤT CẢ CÁC GÓI",
     "support247": "Hỗ trợ khách hàng 24/7",
     "pccc": "Kết nối trực tiếp với trung tâm thông báo cháy của PCCC",
-    "monitoring": "Giám sát trực tuyến tình trạng hoạt động của thiết bị"
+    "monitoring": "Giám sát trực tuyến tình trạng hoạt động của thiết bị",
+    "sim": "Sim data 4G"
   },
   "clients": {
     "title": "Đã và đang được lựa chọn bởi",

@@ -1,4 +1,5 @@
 {
+  "viewDetails": "View Details",
   "nav": {
     "home": "HOME",
     "about": "PRICING",
@@ -17,24 +18,29 @@
   },
   "pricing": {
     "title": "Equipment & Service Pricing",
-    "subtitle": "Choose a service package that suits your needs",
-    "viewDetails": "VIEW DETAILS",
+    "subtitle": "Choose a service package that suits your needs"
+  },
+  "modelG6": {
+    "title": "MODEL G6",
+    "price": "6.600.000 VND",
+    "productSuffix": "Product",
     "features": {
       "fireAlert": "Fire alert transmission",
-      "autoShutdown": "Compatible with fire alarm devices",
-      "remoteControl": "Remote power control from anywhere"
+      "compatible": "99% compatible with fire alarm cabinets",
+      "largeScale": "Suitable for large scale facilities"
     },
-    "price": {
-      "prefix": "Package price from",
-      "warranty": "Device",
-      "subscription": "These devices use the smallest package from fire insurance"
-    }
+    "fromDeviceTwo" : "From 2 devices",
+    "perMonth" : "Month",
+    "perDevice" : "Device",
+    "pricePrefix" : "Preferential package price:",
+    "subscription" : "These devices will share the same package as the first device (including equivalent features and benefits)"
   },
   "features": {
     "title": "COMMON FEATURES OF ALL PACKAGES",
     "support247": "24/7 customer support",
     "pccc": "Direct connection to the fire department notification center",
-    "monitoring": "Online monitoring of device operation status"
+    "monitoring": "Online monitoring of device operation status",
+    "sim": "Sim data 4G"
   },
   "clients": {
     "title": "Chosen by",
