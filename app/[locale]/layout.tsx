@@ -12,7 +12,7 @@ interface LocaleLayoutProps {
 }
 
 export default async function LocaleLayout(props: LocaleLayoutProps) {
-  const locale = props.params.locale;
+  const { locale } = props.params;
 
   let messages;
   try {
@@ -23,12 +23,8 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
   }
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {props.children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {props.children}
+    </NextIntlClientProvider>
   );
 } 
