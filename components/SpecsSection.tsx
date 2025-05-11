@@ -1,44 +1,82 @@
 "use client"
 
 import { useTranslations } from "next-intl"
+import Image from "next/image"
+import Specification from "@/assets/img/specifications.png"
+import Benefit from "@/assets/img/benefit.png"
+import Tick from "@/assets/img/tick-circle.png"
 
 export default function SpecsSection() {
   const tSpecs = useTranslations("specs")
   const tBenefits = useTranslations("benefits2")
 
   return (
-    <section className="py-16">
+    <section className="py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Specifications Column */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold mb-6">{tSpecs("title")}</h3>
+            <div className="flex items-center gap-2 mb-6">
+              <Image
+                src={Specification || "/placeholder.svg"}
+                alt="Specifications"
+                width={24}
+                height={24}
+                className="object-contain text-blue-500"
+              />
+              <h3 className="text-[24px] font-bold text-[#252627]">{tSpecs("title")}</h3>
+            </div>
+
             <div className="space-y-4">
               {[
-                { icon: "/wifi.svg", text: tSpecs("wifi") },
-                { icon: "/power.svg", text: tSpecs("power") },
-                { icon: "/material.svg", text: tSpecs("material") },
-                { icon: "/size.svg", text: tSpecs("size") },
+                { text: tSpecs("wifi") },
+                { text: tSpecs("power") },
+                { text: tSpecs("material") },
+                { text: tSpecs("size") },
               ].map((spec, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="w-4 h-4 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
-                  <span>{spec.text}</span>
+                <div key={index} className="flex items-center gap-3">
+                  <Image
+                    src={Tick || "/placeholder.svg"}
+                    alt="Check"
+                    width={20}
+                    height={20}
+                    className="object-contain flex-shrink-0"
+                  />
+                  <span className="text-[16px] font-medium text-[#252627]">{spec.text}</span>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Benefits Column */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold mb-6">{tBenefits("title")}</h3>
+            <div className="flex items-center gap-2 mb-6">
+              <Image
+                src={Benefit || "/placeholder.svg"}
+                alt="Benefits"
+                width={24}
+                height={24}
+                className="object-contain text-blue-500"
+              />
+              <h3 className="text-[24px] font-bold text-[#252627]">{tBenefits("title")}</h3>
+            </div>
+
             <div className="space-y-4">
               {[
-                { icon: "/safety.svg", text: tBenefits("safety") },
-                { icon: "/property.svg", text: tBenefits("property") },
-                { icon: "/compliance.svg", text: tBenefits("compliance") },
-                { icon: "/monitoring.svg", text: tBenefits("monitoring") },
+                { text: tBenefits("safety") },
+                { text: tBenefits("property") },
+                { text: tBenefits("compliance") },
+                { text: tBenefits("monitoring") },
               ].map((benefit, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="w-4 h-4 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
-                  <span>{benefit.text}</span>
+                <div key={index} className="flex items-center gap-3">
+                  <Image
+                    src={Tick || "/placeholder.svg"}
+                    alt="Check"
+                    width={20}
+                    height={20}
+                    className="object-contain flex-shrink-0"
+                  />
+                  <span className="text-[16px] font-medium text-[#252627]">{benefit.text}</span>
                 </div>
               ))}
             </div>

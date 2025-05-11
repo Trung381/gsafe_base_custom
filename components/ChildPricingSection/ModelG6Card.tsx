@@ -102,7 +102,7 @@ export default function ModelG6Card() {
         <p className="text-[38px] font-bold text-[#252627] mb-0">
           {t("price")}
           <span className="text-[14px] font-medium text-[#252627] ml-1">
-            /{t("productSuffix", { ns: "pricing" })}
+            /{t("productSuffix")}
           </span>
         </p>
 
