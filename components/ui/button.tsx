@@ -1,3 +1,50 @@
+// import { ButtonHTMLAttributes, FC } from 'react';
+// import { twMerge } from 'tailwind-merge';
+
+// interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+//   variant?: 'primary' | 'secondary' | 'outline';
+//   size?: 'sm' | 'md' | 'lg';
+// }
+
+// const Button: FC<ButtonProps> = ({
+//   children,
+//   className,
+//   variant = 'primary',
+//   size = 'md',
+//   ...props
+// }) => {
+//   const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors focus:outline-none';
+  
+//   const variantStyles = {
+//     primary: 'bg-blue-600 text-white hover:bg-blue-700',
+//     secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+//     outline: 'bg-transparent border border-current text-blue-600 hover:bg-blue-50'
+//   };
+  
+//   const sizeStyles = {
+//     sm: 'text-sm px-3 py-1',
+//     md: 'text-base px-4 py-2',
+//     lg: 'text-lg px-6 py-3'
+//   };
+  
+//   const mergedClassName = twMerge(
+//     baseStyles,
+//     variantStyles[variant],
+//     sizeStyles[size],
+//     className
+//   );
+
+//   return (
+//     <button className={mergedClassName} {...props}>
+//       {children}
+//     </button>
+//   );
+// };
+
+// export default Button;
+
+
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"

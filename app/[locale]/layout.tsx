@@ -1,4 +1,6 @@
 import {NextIntlClientProvider} from 'next-intl';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export function generateStaticParams() {
   return [{locale: 'en'}, {locale: 'vi'}];
@@ -24,7 +26,11 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      {props.children}
+      <Header />
+      <main>
+        {props.children}
+      </main>
+      <Footer />
     </NextIntlClientProvider>
   );
 } 

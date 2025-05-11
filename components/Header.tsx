@@ -2,29 +2,39 @@
 
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import logo from "@/assets/img/logo-gsafe.png"
 import CallIcon from "@/assets/img/call-btn.png"
 import LangIcon from "@/assets/img/lang.png"
 import VieFlag from "@/assets/img/vi-flag.png"
 import EngFlag from "@/assets/img/en-flag.png"
+import { Link, usePathname, useRouter } from "@/i18n/navigation"
 
 export default function Header() {
   const t = useTranslations("nav")
   const phone = useTranslations("phone")
   const pathname = usePathname()
   const router = useRouter()
-  const [locale, setLocale] = useState<"vi" | "en">("vi")
+  const [currentLocale, setCurrentLocale] = useState<"vi" | "en">("vi")
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
+  useEffect(() => {
+    const pathLocale = pathname.split('/')[1]
+    if (pathLocale === 'en' || pathLocale === 'vi') {
+      setCurrentLocale(pathLocale as "vi" | "en")
+    }
+  }, [pathname])
+
   const changeLanguage = (newLocale: "vi" | "en") => {
-    setLocale(newLocale)
+    // Chỉ đóng dropdown, không kiểm tra currentLocale nữa
     setDropdownOpen(false)
-    const currentLocale = pathname.split('/')[1]
-    const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`)
-    router.push(newPath)
+    
+    // Log để debug
+    console.log('Changing language to:', newLocale);
+    console.log('Current pathname:', pathname);
+    
+    // Chuyển đến cùng đường dẫn nhưng với locale mới, giống như trong device-test
+    router.replace(pathname, { locale: newLocale })
   }
 
   return (
@@ -40,6 +50,9 @@ export default function Header() {
             </Link>
             <Link href="/pricing" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
               {t("pricesList")}
+            </Link>
+            <Link href="/device" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
+              {t("device")}
             </Link>
             <Link href="/legal" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
               {t("legal")}

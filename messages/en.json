@@ -1,10 +1,16 @@
 {
   "viewDetails": "View Details",
+  "device": {
+    "title": "Device",
+    "productIntroduction": "The GSafe G9 device is directly integrated into the fire alarm control panel of the facility. Whenever there is a fire alarm signal, the warning will be transmitted directly through the GSafe G9 device to the database management system of the Monitoring Service Center - GTEL. The core software system will quickly process the signal and automatically make calls, send messages, and warn on the Mobile App to the facility. At the same time, the 24/7 hotline at the MSC - GTEL center will support direct calls to the phone numbers of the facility manager registered on the system to support direct interaction with customers, and support customers in handling incidents.",
+    "buyNow": "Buy Now"
+  },
   "nav": {
     "openLetter": "OPEN LETTER",
     "pricesList": "PRICES LIST",
     "legal": "LEGAL",
-    "guide": "USER GUIDE"
+    "guide": "USER GUIDE",
+    "device": "DEVICE"
   },
   "phone": {
     "label": "CONSULT",
@@ -73,7 +79,6 @@
       "insurance": "Safety Insurance",
       "smartCity": "VN Smart City"
     }
-
   },
   "benefits": {
     "title": "Incident Reporting Device",
@@ -145,5 +150,12 @@
   "Index": {
     "title": "Welcome",
     "description": "This is the homepage"
-  }
+  },
+  "devicePageTitle": "GSafe Device",
+  "product-introduction": "The GSafe G9 device is directly integrated into the fire alarm control panel of the facility. Whenever there is a fire alarm signal, the warning will be transmitted directly through the GSafe G9 device to the database management system of the Monitoring Service Center - GTEL. The core software system will quickly process the signal and automatically make calls, send messages, and warn on the Mobile App to the facility. At the same time, the 24/7 hotline at the MSC - GTEL center will support direct calls to the phone numbers of the facility manager registered on the system to support direct interaction with customers, and support customers in handling incidents.",
+  "buttonText": "Contact Now",
+  
+  "Test chuyển đổi ngôn ngữ": "Language Switching Test",
+  "hello": "Hello, this is content in English",
+  "welcome": "Welcome to the multilingual test page"
 }
