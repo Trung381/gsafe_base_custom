@@ -5,6 +5,24 @@
     "productIntroduction": "The GSafe G9 device is directly integrated into the fire alarm control panel of the facility. Whenever there is a fire alarm signal, the warning will be transmitted directly through the GSafe G9 device to the database management system of the Monitoring Service Center - GTEL. The core software system will quickly process the signal and automatically make calls, send messages, and warn on the Mobile App to the facility. At the same time, the 24/7 hotline at the MSC - GTEL center will support direct calls to the phone numbers of the facility manager registered on the system to support direct interaction with customers, and support customers in handling incidents.",
     "buyNow": "Buy Now"
   },
+  "registration": {
+    "title": "Service Registration",
+    "customerName": "Customer Name",
+    "enterCustomerName": "Enter customer name",
+    "address": "Address",
+    "enterAddress": "Enter address",
+    "email": "Email",
+    "enterEmail": "Enter email",
+    "industry": "Industry / Sector",
+    "enterIndustry": "Enter industry / sector",
+    "phoneNumber": "Phone Number",
+    "enterPhoneNumber": "Enter phone number",
+    "taxCode": "Tax Code",
+    "enterTaxCode": "Enter tax code",
+    "legalRepresentative": "Legal Representative",
+    "enterLegalRepresentative": "Enter name of legal representative",
+    "next": "NEXT"
+  },
   "nav": {
     "openLetter": "OPEN LETTER",
     "pricesList": "PRICES LIST",
