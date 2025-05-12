@@ -56,7 +56,7 @@ export default function Hero() {
             </Button> */}
             
             <Button
-              href="/buy"
+              href="/customer-registration"
               variant="outline"
               size="lg"
               className="rounded-2xl border border-[#0267AB] text-[#0267AB] hover:bg-[#0267AB] hover:text-white group"

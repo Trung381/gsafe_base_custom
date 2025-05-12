@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import deviceImage from '@/assets/img/device.png';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export default function DeviceTestPage() {
   const t = useTranslations();
@@ -53,6 +54,26 @@ export default function DeviceTestPage() {
           >
             English
           </Button>
+        </div>
+      </div>
+
+      {/* RadioGroup Test Section */}
+      <div className="bg-[#F4FAFF] p-6 rounded-xl mb-8">
+        <div className="flex items-center gap-8">
+          <RadioGroup defaultValue="12" className="flex flex-row gap-8">
+            <label className="flex items-center cursor-pointer font-semibold text-lg">
+              <RadioGroupItem value="12" id="r-12" className="mr-2" />
+              12 tháng
+            </label>
+            <label className="flex items-center cursor-pointer font-semibold text-lg text-[#222]">
+              <RadioGroupItem value="24" id="r-24" className="mr-2" />
+              24 tháng
+            </label>
+            <label className="flex items-center cursor-pointer font-semibold text-lg text-[#222]">
+              <RadioGroupItem value="36" id="r-36" className="mr-2" />
+              36 tháng
+            </label>
+          </RadioGroup>
         </div>
       </div>
 

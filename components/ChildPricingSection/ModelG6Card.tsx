@@ -88,7 +88,7 @@ export default function ModelG6Card() {
           className="object-contain mb-4"
         />
         <Button
-          href="/buy"
+          href="/device"
           size="lg"
           className="rounded-2xl bg-[#0267AB] border-2 border-[#0C9BEB] text-white hover:bg-white hover:text-[#0267AB]"
         >

@@ -13,10 +13,6 @@ export default function DevicePage() {
     const pathname = usePathname();
     const router = useRouter();
     
-    // Debug: Xem trang có được load lại khi chuyển ngôn ngữ không
-    useEffect(() => {
-      console.log('Device page rendered with pathname:', pathname);
-    }, [pathname]);
 
     return (
       <div>
@@ -29,7 +25,7 @@ export default function DevicePage() {
               {t('productIntroduction')}
             </p>
 
-            <Button className="rounded-2xl bg-[#0267AB] border-2 border-[#0C9BEB] text-white hover:bg-white hover:text-[#0267AB]">
+            <Button href="/customer-registration" className="rounded-2xl bg-[#0267AB] border-2 border-[#0C9BEB] text-white hover:bg-white hover:text-[#0267AB]">
               {t('buyNow')}
             </Button>
           </div>

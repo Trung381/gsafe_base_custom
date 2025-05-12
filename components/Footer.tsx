@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import Link from "next/link"
+import LogoWhite from "@/assets/img/logo-white.png"
+import Cute from "@/assets/img/cute.png"
 
 export default function Footer() {
   const t = useTranslations("footer")
@@ -46,7 +48,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center">
-            <Image src="/logo-white.png" alt="GEIC Logo" width={120} height={50} className="mb-4" />
+            <Image src={LogoWhite} alt="GEIC Logo" width={120} height={50} className="mb-4" />
             <div className="flex space-x-4 mb-4">
               <Link href="#" className="hover:text-blue-300">
                 <Image src="/facebook.svg" alt="Facebook" width={24} height={24} />
@@ -61,7 +63,7 @@ export default function Footer() {
                 <Image src="/youtube.svg" alt="YouTube" width={24} height={24} />
               </Link>
             </div>
-            <Image src="/mascot.png" alt="Mascot" width={100} height={100} />
+            <Image src={Cute} alt="Mascot" width={100} height={100} />
           </div>
         </div>
 
