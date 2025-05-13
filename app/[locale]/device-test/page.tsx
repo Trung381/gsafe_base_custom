@@ -1,105 +1,127 @@
-'use client';
+// 'use client';
 
-import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from '@/i18n/navigation';
-import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import deviceImage from '@/assets/img/device.png';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+// import React, { useState } from 'react';
+// import { Steps, Popover } from 'antd';
+// import type { StepsProps } from 'antd';
+// import { useTranslations } from 'next-intl';
+// import CustomerRegistrationForm from '@/components/customer-registration-form';
+// import BranchInformationForm from '@/components/branch-infomation/branch-information-form';
+// import ServiceSelectionForm from '@/components/plan-duration/service-selection-form';
+// import PaymentPage from '@/components/payment/payment-page';
+// import ArrowRight from "@/assets/icons/arrow-right.svg";
+// import ArrowLeft from "@/assets/icons/arrow-left.svg";
+// import { usePathname, useRouter } from '@/i18n/navigation';
 
-export default function DeviceTestPage() {
-  const t = useTranslations();
-  const pathname = usePathname();
-  const router = useRouter();
-  const [currentUrl, setCurrentUrl] = useState('');
-  const [currentPathname, setCurrentPathname] = useState('');
+// // Custom dot với Popover như yêu cầu
+// const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
+//   <Popover
+//     content={
+//       <span>
+//         step {index + 1} status: {status}
+//       </span>
+//     }
+//   >
+//     {dot}
+//   </Popover>
+// );
 
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-    setCurrentPathname(pathname);
-  }, [pathname]);
+// export default function DeviceTestPage() {
+//   const t = useTranslations();
+//   const pathname = usePathname();
+//   const router = useRouter();
+//   const [currentStep, setCurrentStep] = useState(0);
 
-  const changeLanguage = (newLocale: 'vi' | 'en') => {
-    console.log('Changing language to:', newLocale);
-    console.log('Current pathname:', pathname);
-    router.replace(pathname, { locale: newLocale });
-  };
+//   // Danh sách các bước
+//   const steps = [
+//     {
+//       title: 'Thông tin khách hàng',
+//       content: <CustomerRegistrationForm />,
+//     },
+//     {
+//       title: 'Thông tin cơ sở',
+//       content: <BranchInformationForm />,
+//     },
+//     {
+//       title: 'Chọn gói dịch vụ',
+//       content: <ServiceSelectionForm />,
+//     },
+//     {
+//       title: 'Thanh toán',
+//       content: <PaymentPage />,
+//     },
+//   ];
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">
-        {t('devicePageTitle')} - Test
-      </h1>
+//   // Đi đến bước trước đó
+//   const prev = () => {
+//     setCurrentStep(currentStep - 1);
+//   };
 
-      <div className="bg-yellow-100 p-4 mb-8 rounded-md">
-        <h2 className="text-xl font-semibold mb-2">Debug Information:</h2>
-        <p className="mb-2">
-          <strong>Current URL:</strong> {currentUrl}
-        </p>
-        <p className="mb-4">
-          <strong>Current Pathname:</strong> {currentPathname}
-        </p>
+//   // Đi đến bước tiếp theo
+//   const next = () => {
+//     setCurrentStep(currentStep + 1);
+//   };
 
-        <div className="flex gap-4 mt-4">
-          <Button 
-            onClick={() => changeLanguage('vi')} 
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            Tiếng Việt
-          </Button>
-          <Button 
-            onClick={() => changeLanguage('en')} 
-            className="bg-red-600 hover:bg-red-700"
-          >
-            English
-          </Button>
-        </div>
-      </div>
+//   // Hoàn thành đăng ký
+//   const done = () => {
+//     console.log('Đăng ký hoàn tất!');
+//     // Xử lý hoàn tất đăng ký, có thể chuyển hướng đến trang cảm ơn
+//   };
 
-      {/* RadioGroup Test Section */}
-      <div className="bg-[#F4FAFF] p-6 rounded-xl mb-8">
-        <div className="flex items-center gap-8">
-          <RadioGroup defaultValue="12" className="flex flex-row gap-8">
-            <label className="flex items-center cursor-pointer font-semibold text-lg">
-              <RadioGroupItem value="12" id="r-12" className="mr-2" />
-              12 tháng
-            </label>
-            <label className="flex items-center cursor-pointer font-semibold text-lg text-[#222]">
-              <RadioGroupItem value="24" id="r-24" className="mr-2" />
-              24 tháng
-            </label>
-            <label className="flex items-center cursor-pointer font-semibold text-lg text-[#222]">
-              <RadioGroupItem value="36" id="r-36" className="mr-2" />
-              36 tháng
-            </label>
-          </RadioGroup>
-        </div>
-      </div>
+//   return (
+//     <div className="bg-white min-h-screen">
+//       <div className="max-w-7xl mx-auto px-4 py-8">
+//         {/* Steps Bar */}
+//         <div className="mb-10">
+//           <Steps
+//             current={currentStep}
+//             progressDot={customDot}
+//             items={steps.map(item => ({
+//               title: item.title,
+//             }))}
+//           />
+//         </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-10">
-        <div className="flex-1">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">GSafe (G6)</h1>
-          <p className="text-base md:text-lg mb-8 text-gray-700">
-            {t('product-introduction')}
-          </p>
+//         {/* Component Content */}
+//         <div className="mb-12">
+//           {steps[currentStep].content}
+//         </div>
 
-          <Button className="rounded-2xl px-7 py-3 text-base font-semibold border-2 border-[#0C9BEB]">
-            {t('buttonText')}
-          </Button>
-        </div>
-
-        <div className="flex-1 flex justify-center">
-          <Image
-            src={deviceImage}
-            alt="GSafe G6"
-            width={500}
-            height={447}
-            className="object-contain"
-            priority
-          />
-        </div>
-      </div>
-    </div>
-  );
-} 
+//         {/* Navigation Buttons */}
+//         <div className="flex justify-between">
+//           {currentStep > 0 && (
+//             <button
+//               onClick={prev}
+//               className="inline-flex items-center justify-center gap-2 px-8 py-2 rounded-full border border-[#0267AB] bg-white text-[#0267AB] hover:bg-[#0267AB] hover:text-white transition-colors group"
+//             >
+//               <span className="inline-block w-11 h-4 text-[#0267AB] group-hover:text-white">
+//                 <ArrowLeft className="w-full h-full" />
+//               </span>
+//               <span className="font-medium">QUAY LẠI</span>
+//             </button>
+//           )}
+          
+//           {currentStep < steps.length - 1 && (
+//             <button
+//               onClick={next}
+//               className="inline-flex items-center justify-center gap-2 px-8 py-2 rounded-full border border-[#0267AB] bg-white text-[#0267AB] hover:bg-[#0267AB] hover:text-white transition-colors group ml-auto"
+//             >
+//               <span className="font-medium">TIẾP THEO</span>
+//               <span className="inline-block w-11 h-4 text-[#0267AB] group-hover:text-white">
+//                 <ArrowRight className="w-full h-full" />
+//               </span>
+//             </button>
+//           )}
+          
+//           {currentStep === steps.length - 1 && (
+//             <button
+//               onClick={done}
+//               className="inline-flex items-center justify-center gap-2 px-8 py-2 rounded-full border border-[#0267AB] bg-[#0267AB] text-white hover:opacity-90 transition-colors ml-auto"
+//             >
+//               <span className="font-medium">HOÀN TẤT</span>
+//             </button>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// } 
