@@ -1,43 +1,36 @@
-
-
 "use client"
 
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import logo from "@/assets/img/logo-gsafe.png"
 import CallIcon from "@/assets/img/call-btn.png"
 import LangIcon from "@/assets/img/lang.png"
 import VieFlag from "@/assets/img/vi-flag.png"
 import EngFlag from "@/assets/img/en-flag.png"
 import { Link, usePathname, useRouter } from "@/i18n/navigation"
+import { MenuOutlined } from '@ant-design/icons'
+import SidebarMenu from "./SidebarMenu"
 
 export default function Header() {
   const t = useTranslations("nav")
   const phone = useTranslations("phone")
   const pathname = usePathname()
   const router = useRouter()
-  const [currentLocale, setCurrentLocale] = useState<"vi" | "en">("vi")
   const [dropdownOpen, setDropdownOpen] = useState(false)
-
-  useEffect(() => {
-    const pathLocale = pathname.split('/')[1]
-    if (pathLocale === 'en' || pathLocale === 'vi') {
-      setCurrentLocale(pathLocale as "vi" | "en")
-    }
-  }, [pathname])
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const changeLanguage = (newLocale: "vi" | "en") => {
-    // Chỉ đóng dropdown, không kiểm tra currentLocale nữa
     setDropdownOpen(false)
-    
-    // Log để debug
-    console.log('Changing language to:', newLocale);
-    console.log('Current pathname:', pathname);
-    
-    // Chuyển đến cùng đường dẫn nhưng với locale mới, giống như trong device-test
     router.replace(pathname, { locale: newLocale })
   }
+
+  const navLinks = [
+    { href: "/", label: "openLetter" },
+    { href: "/pricing", label: "pricesList" },
+    { href: "/legal", label: "legal" },
+    { href: "/docs", label: "guide" },
+  ];
 
   return (
     <header className="bg-white shadow-sm">
@@ -46,28 +39,23 @@ export default function Header() {
           <Link href="/">
             <Image src={logo} alt="GEIC Logo" width={80} height={30} />
           </Link>
-          <nav className="hidden md:flex ml-10">
-            <Link href="/" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-              {t("openLetter")}
-            </Link>
-            <Link href="/pricing" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-              {t("pricesList")}
-            </Link>
-            <Link href="/device" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-              {t("device")}
-            </Link>
-            <Link href="/legal" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-              {t("legal")}
-            </Link>
-            <Link href="/docs" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-              {t("guide")}
-            </Link>
+          {/* Menu desktop */}
+          <nav className="hidden lg:flex ml-10">
+            {navLinks.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600"
+              >
+                {t(link.label)}
+              </Link>
+            ))}
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
-          {/* Call button */}
-          <div className="flex items-center text-white rounded-xl px-3 py-1">
+        <div className="flex items-center gap-4 flex-row-reverse md:flex-row">
+          {/* Call button desktop */}
+          <div className="hidden lg:flex items-center text-white rounded-xl px-3 py-1">
             <Image src={CallIcon} alt="Call" width={50} height={50} className="mr-2" />
             <div className="flex flex-col text-[#252627] leading-none">
               <span className="text-[20] font-semibold">{phone("label")}</span>
@@ -75,7 +63,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Language Dropdown */}
+          {/* Language Dropdown luôn hiện */}
           <div className="relative">
             <button
               className="flex items-center focus:outline-none"
@@ -109,8 +97,19 @@ export default function Header() {
               </div>
             )}
           </div>
+
+          {/* Icon menu mobile */}
+          <button
+            className="block lg:hidden ml-2 text-2xl text-[#222]"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open menu"
+          >
+            <MenuOutlined />
+          </button>
         </div>
       </div>
+      {/* Sidebar cho mobile */}
+      <SidebarMenu open={sidebarOpen} onClose={() => setSidebarOpen(false)} navLinks={navLinks} />
     </header>
   )
 }

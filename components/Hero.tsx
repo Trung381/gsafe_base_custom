@@ -25,9 +25,9 @@ export default function Hero() {
         quality={100}
       />
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center relative z-10 min-h-screen">
-        <div className="md:w-1/2 mb-8 md:mb-0">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{t("title")}</h1>
-          <p className="text-lg text-gray-600 mb-8">{t("subtitle")}</p>
+        <div className="md:w-1/2 mb-8 md:mb-0 text-center md:text-left">
+          <h1 className="text-[32px] md:text-[46px] font-bold text-gray-800 mb-4 leading-tight">{t("title")}</h1>
+          <p className="text-[20px] md:text-[24px] font-medium text-gray-600 mb-8">{t("subtitle")}</p>
           {/* <div className="flex flex-col sm:flex-row gap-4">
             <Link 
               href="/contact" 
@@ -56,10 +56,10 @@ export default function Hero() {
             </Button> */}
             
             <Button
-              href="/customer-registration"
+              href="/registration"
               variant="outline"
               size="lg"
-              className="rounded-2xl border border-[#0267AB] text-[#0267AB] hover:bg-[#0267AB] hover:text-white group"
+              className="rounded-2xl border border-[#0267AB] text-[#0267AB] hover:bg-[#0267AB] hover:text-white group px-8 py-2 text-lg font-bold w-auto min-w-0 mx-auto md:mx-0"
               icon={<Shopping className="mr-2 w-5 h-5" />}
             >
               {t("cta2")}

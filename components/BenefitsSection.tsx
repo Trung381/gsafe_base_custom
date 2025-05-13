@@ -45,7 +45,7 @@ export default function BenefitsSection() {
         </div>
 
         {/* Main Content: Cards + Device Image */}
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col-reverse lg:flex-row gap-8">
           {/* Cards Grid */}
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:w-2/3">
             {benefitsData.map((benefit, index) => (
@@ -71,7 +71,7 @@ export default function BenefitsSection() {
             ))}
           </div> */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:w-3/5">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-6 lg:w-3/5">
             {benefitsData.map((benefit, index) => (
               <div
                 key={index}

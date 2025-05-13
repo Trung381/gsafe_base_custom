@@ -92,7 +92,7 @@ export default function ClientsSection() {
         </h2>
 
         {/* Clients */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 m mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 m mb-16">
           {clientLogos.map(({ img, labelKey }, i) => (
             <div key={i} className="bg-white rounded-2xl overflow-hidden text-center shadow-sm">
               {/* Icon section with blue bg, only top corners rounded */}
