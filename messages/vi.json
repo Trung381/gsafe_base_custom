@@ -6,7 +6,7 @@
     "buyNow": "Mua ngay"
   },
   "registration": {
-    "title": "Đăng ký dịch vụ",
+    
     "customerName": "Tên khách hàng",
     "enterCustomerName": "Nhập tên khách hàng",
     "address": "Địa chỉ",
@@ -172,7 +172,7 @@
     "description": "Đây là trang chủ"
   },
   "branchInfo": {
-    "title": "Đăng ký dịch vụ",
+    
     "branch": "Cơ sở",
     "branchName": "Tên cơ sở",
     "enterBranchName": "Nhập tên cơ sở",
@@ -187,7 +187,7 @@
     "next": "TIẾP"
   },
   "serviceSelection": {
-    "title": "Đăng ký dịch vụ",
+    
     "facility": "Cơ sở",
     "selectPackage": "Chọn gói cước",
     "selectDuration": "Chọn chu kỳ",
@@ -197,10 +197,11 @@
     "gsafe300Description": "Gói dịch vụ cơ bản với các tính năng truyền tin báo cháy",
     "gsafe400Description": "Gói dịch vụ nâng cao với các tính năng báo cháy thông minh",
     "gsafe500Description": "Gói dịch vụ cao cấp với đầy đủ tính năng và hỗ trợ 24/7",
-    "gsafesocDescription": "Gói dịch vụ doanh nghiệp với trung tâm điều hành an ninh"
+    "gsafesocDescription": "Gói dịch vụ doanh nghiệp với trung tâm điều hành an ninh",
+    "pleaseSelect": "Vui lòng chọn"
   },
   "payment": {
-    "title": "Đăng ký dịch vụ",
+    
     "orderInformation": "Thông tin đơn hàng",
     "facility": "Cơ sở",
     "devicesOrdered": "Số thiết bị đặt mua",
@@ -231,6 +232,7 @@
     "back": "QUAY LẠI",
     "complete": "HOÀN TẤT"
   },
+  "RegisTrationTitle": "Đăng ký dịch vụ",
   
   "Test chuyển đổi ngôn ngữ": "Kiểm tra chuyển đổi ngôn ngữ",
   "hello": "Xin chào, đây là nội dung bằng tiếng Việt",

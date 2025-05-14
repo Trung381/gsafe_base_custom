@@ -195,7 +195,8 @@
     "gsafe300Description": "Basic service package with fire alarm transmission features",
     "gsafe400Description": "Advanced service package with smart fire alarm features",
     "gsafe500Description": "Premium service package with full features and 24/7 support",
-    "gsafesocDescription": "Enterprise service package with centralized security operations center"
+    "gsafesocDescription": "Enterprise service package with centralized security operations center",
+    "pleaseSelect": "Please select"
   },
   "payment": {
     "title": "Service Registration",
@@ -229,6 +230,7 @@
     "back": "BACK",
     "complete": "COMPLETE"
   },
+  "RegisTrationTitle": "Đăng ký dịch vụ",
 
 
   "devicePageTitle": "GSafe Device",

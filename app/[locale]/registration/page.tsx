@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Steps, Popover } from 'antd';
 import type { StepsProps } from 'antd';
 import { useTranslations } from 'next-intl';
-import CustomerRegistrationForm from '@/components/customer-registration-form-simplified';
-import BranchInformationForm from '@/components/branch-infomation/branch-information-form-simplified';
-import ServiceSelectionForm from '@/components/plan-duration/service-selection-form-simplified';
-import PaymentPage from '@/components/payment/payment-form-simplified';
+import CustomerRegistrationForm, { CustomerFormValues } from '@/components/customer-registration-form-simplified';
+import BranchInformationForm, { BranchesFormValues } from '@/components/branch-infomation/branch-information-form-simplified';
+import ServiceSelectionForm, { ServiceSelectionFormValues } from '@/components/plan-duration/service-selection-form-simplified';
+import PaymentForm, { PaymentFormValues } from '@/components/payment/payment-form-simplified';
 import ArrowRight from "@/assets/icons/arrow-right.svg";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
 import { useRouter } from 'next/navigation';
+import PageTitle from '@/components/page-title';
 
 // Custom dot với Popover như yêu cầu
 const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
@@ -25,28 +26,72 @@ const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
   </Popover>
 );
 
+// Define types for form data
+interface FormData {
+  customerInfo: Partial<CustomerFormValues>;
+  branchInfo: Partial<BranchesFormValues>;
+  serviceSelection: Partial<ServiceSelectionFormValues>;
+  payment: Partial<PaymentFormValues>;
+}
+
 export default function RegistrationPage() {
   const t = useTranslations();
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<FormData>({
+    customerInfo: {},
+    branchInfo: {},
+    serviceSelection: {},
+    payment: {}
+  });
+
+  // Refs for accessing form methods
+  const customerFormRef = useRef<{ validate: () => Promise<boolean> }>(null);
+  const branchFormRef = useRef<{ validate: () => Promise<boolean> }>(null);
+  const serviceFormRef = useRef<{ validate: () => Promise<boolean> }>(null);
+  const paymentFormRef = useRef<{ validate: () => Promise<boolean> }>(null);
 
   // Danh sách các bước
   const steps = [
     {
       title: 'Thông tin khách hàng',
-      content: <CustomerRegistrationForm />,
+      content: (
+        <CustomerRegistrationForm 
+          ref={customerFormRef} 
+          data={formData.customerInfo} 
+          setData={(data) => setFormData(prev => ({ ...prev, customerInfo: data }))} 
+        />
+      ),
     },
     {
       title: 'Thông tin cơ sở',
-      content: <BranchInformationForm />,
+      content: (
+        <BranchInformationForm 
+          ref={branchFormRef} 
+          data={formData.branchInfo} 
+          setData={(data) => setFormData(prev => ({ ...prev, branchInfo: data }))} 
+        />
+      ),
     },
     {
       title: 'Chọn gói dịch vụ',
-      content: <ServiceSelectionForm />,
+      content: (
+        <ServiceSelectionForm 
+          ref={serviceFormRef} 
+          data={formData.serviceSelection} 
+          setData={(data) => setFormData(prev => ({ ...prev, serviceSelection: data }))} 
+        />
+      ),
     },
     {
       title: 'Thanh toán',
-      content: <PaymentPage />,
+      content: (
+        <PaymentForm 
+          ref={paymentFormRef} 
+          data={formData.payment} 
+          setData={(data) => setFormData(prev => ({ ...prev, payment: data }))} 
+        />
+      ),
     },
   ];
 
@@ -55,25 +100,46 @@ export default function RegistrationPage() {
     setCurrentStep(currentStep - 1);
   };
 
-  // Đi đến bước tiếp theo
-  const next = () => {
-    setCurrentStep(currentStep + 1);
+  // Validate current form and go to next step if valid
+  const next = async () => {
+    // Get current form ref based on step
+    const currentFormRef = [customerFormRef, branchFormRef, serviceFormRef, paymentFormRef][currentStep];
+    
+    if (currentFormRef?.current) {
+      // Call the validate method of the form
+      const isValid = await currentFormRef.current.validate();
+      
+      if (isValid) {
+        setCurrentStep(currentStep + 1);
+      }
+    } else {
+      // Fallback if ref not available
+      setCurrentStep(currentStep + 1);
+    }
   };
 
-  // Hoàn thành đăng ký
-  const done = () => {
-    console.log('Đăng ký hoàn tất!');
-    // Thông báo hoàn tất và chuyển hướng người dùng về trang chủ sau vài giây
-    setTimeout(() => {
-      router.push('/'); 
-    }, 3000);
+  // Validate final form and complete registration if valid
+  const done = async () => {
+    if (paymentFormRef?.current) {
+      const isValid = await paymentFormRef.current.validate();
+      
+      if (isValid) {
+        console.log('Đăng ký hoàn tất!', formData);
+        // Thông báo hoàn tất và chuyển hướng người dùng về trang chủ sau vài giây
+        setTimeout(() => {
+          router.push('/'); 
+        }, 3000);
+      }
+    }
   };
 
   return (
     <div className="bg-white min-h-screen">
+      {/* Page Title */}
+      <PageTitle title={t('RegisTrationTitle')} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Steps Bar */}
-        <div className="mb-10">
+        <div className="my-10 ">
           <Steps
             current={currentStep}
             progressDot={customDot}

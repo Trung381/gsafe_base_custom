@@ -13,7 +13,7 @@ export default function ModelG6Card() {
   return (
     <div className="bg-white my-2 rounded-2xl shadow-lg flex flex-col lg:flex-row w-full h-full border-t border-b border-l border-gray-200">
       {/* LEFT: Image + Button */}
-      <div className="w-full lg:w-2/5 bg-[#E0F1FE] flex flex-col items-center justify-between p-4 rounded-t-2xl lg:rounded-s-xl h-full">
+      <div className="w-full lg:w-2/5 bg-[#E0F1FE] flex flex-col items-center justify-between p-4 rounded-s-2xl rounded-l-2xl lg:rounded-s-xl h-full">
         <Image
           src={DeviceImage}
           alt="GSafe G6 Model"

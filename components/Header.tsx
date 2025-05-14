@@ -53,7 +53,7 @@ export default function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4 flex-row-reverse md:flex-row">
+        <div className="flex items-center gap-4 flex-row-reverse lg:flex-row">
           {/* Call button desktop */}
           <div className="hidden lg:flex items-center text-white rounded-xl px-3 py-1">
             <Image src={CallIcon} alt="Call" width={50} height={50} className="mr-2" />
