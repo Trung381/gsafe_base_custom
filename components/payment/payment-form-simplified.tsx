@@ -3,20 +3,24 @@
 import { useTranslations } from "next-intl"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Input } from "@/components/ui/input"
-import { useState, useEffect, forwardRef, useImperativeHandle } from "react"
+import { useState, useEffect, forwardRef, useImperativeHandle, useCallback } from "react"
 import CheckPaymentImg from "@/assets/icons/check-payment.svg"
 import Image from "next/image"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useRegistration } from "@/contexts/RegistrationContext"
+import QRImg from "@/assets/img/qr.png"
+import React from "react"
 
-// Define the invoice form schema
+
+// Define the invoice form schema - simplified for clarity
 const invoiceFormSchema = z.object({
   companyName: z.string().min(2, { message: "Company name is required" }),
   taxCode: z.string().min(5, { message: "Tax code is required" }),
   address: z.string().min(5, { message: "Address is required" }),
   email: z.string().email({ message: "Valid email is required" }),
-  phone: z.string().min(10, { message: "Phone number is required" }),
+  phone: z.string().min(10, { message: "Phone number is required" })
 });
 
 type InvoiceFormData = z.infer<typeof invoiceFormSchema>;
@@ -25,55 +29,34 @@ type InvoiceFormData = z.infer<typeof invoiceFormSchema>;
 const paymentFormSchema = z.object({
   wantInvoice: z.enum(["yes", "no"]),
   paymentMethod: z.enum(["qr", "cod"]),
-  // Make invoice fields conditional based on wantInvoice
-  invoiceData: z.union([
-    z.object({}).optional(),
-    invoiceFormSchema
-  ]).optional(),
+  invoiceData: z.any() // We'll handle validation of this separately
 });
 
 export type PaymentFormValues = z.infer<typeof paymentFormSchema>;
 
-// Mock data that would normally come from context
-const mockOrderData = {
-  facilities: [
-    {
-      id: 1,
-      name: "A",
-      devices: { count: 1, price: 6600000, label: "x1 sản phẩm" },
-      package: { name: "GSafe 300", duration: "12 tháng", price: 3600000 },
-      vat: 400000,
-      total: 10600000,
-    },
-    {
-      id: 2,
-      name: "B",
-      devices: { count: 1, price: 6600000, label: "x1 sản phẩm" },
-      package: { name: "GSafe 300", duration: "12 tháng", price: 3600000 },
-      vat: 400000,
-      total: 10600000,
-    },
-  ],
-  grandTotal: 23200000,
-}
-
 interface PaymentFormProps {
   data?: Partial<PaymentFormValues>;
   setData?: (data: PaymentFormValues) => void;
+  onPaymentCompleted?: () => void;
 }
 
 const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentFormProps>(
-  ({ data = {}, setData }, ref) => {
+  ({ data = {}, setData, onPaymentCompleted }, ref) => {
     const t = useTranslations("payment")
+    const { orderSummary, grandTotal } = useRegistration();
     
+    const [formIsValid, setFormIsValid] = useState(true); // Start with true for "no" selection
+    const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+    // Initialize form with default values
     const form = useForm<PaymentFormValues>({
       resolver: zodResolver(paymentFormSchema),
       defaultValues: {
         wantInvoice: data.wantInvoice || "no",
         paymentMethod: data.paymentMethod || "qr",
-        invoiceData: data.invoiceData || {},
+        invoiceData: data.invoiceData || {}
       },
-      mode: "onChange", // Enable live validation
+      mode: "onChange"
     });
 
     // State for QR code
@@ -81,24 +64,135 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
     const [countdown, setCountdown] = useState(9 * 60 + 30) // 9 minutes and 30 seconds
     const [paymentSuccess, setPaymentSuccess] = useState(false)
 
+    // Watch form values for changes
+    const wantInvoice = form.watch("wantInvoice");
+    const paymentMethod = form.watch("paymentMethod");
+    const invoiceData = form.watch("invoiceData");
+
+    // Validate the invoice data independently
+    const validateInvoiceData = useCallback(() => {
+      // If not wanting invoice, no validation needed
+      if (wantInvoice !== "yes") {
+        setFormErrors({});
+        return true;
+      }
+
+      const errors: Record<string, string> = {};
+      let isValid = true;
+
+      // Check company name - direct access to ensure we catch empty fields
+      const companyName = invoiceData?.companyName || "";
+      if (!companyName || companyName.length < 2) {
+        errors.companyName = "Company name is required";
+        isValid = false;
+      }
+
+      // Check tax code - direct access to ensure we catch empty fields
+      const taxCode = invoiceData?.taxCode || "";
+      if (!taxCode || taxCode.length < 5) {
+        errors.taxCode = "Tax code is required";
+        isValid = false;
+      }
+
+      // Check address - direct access to ensure we catch empty fields
+      const address = invoiceData?.address || "";
+      if (!address || address.length < 5) {
+        errors.address = "Address is required";
+        isValid = false;
+      }
+
+      // Check email - direct access to ensure we catch empty fields
+      const email = invoiceData?.email || "";
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        errors.email = "Valid email is required";
+        isValid = false;
+      }
+
+      // Check phone - direct access to ensure we catch empty fields
+      const phone = invoiceData?.phone || "";
+      if (!phone || phone.length < 10) {
+        errors.phone = "Phone number is required";
+        isValid = false;
+      }
+
+      // Update errors state
+      setFormErrors(errors);
+      
+      // Return validation result
+      return isValid;
+    }, [wantInvoice, invoiceData]);
+
+    // Complete form validation - don't include form.formState in dependencies
+    // to avoid infinite render loops
+    const validateForm = useCallback(() => {
+      // Basic form validation is handled by react-hook-form
+      const formState = form.formState;
+      
+      // If wanting invoice, also validate invoice data
+      if (wantInvoice === "yes") {
+        const invoiceDataValid = validateInvoiceData();
+        return !formState.errors.paymentMethod && !formState.errors.wantInvoice && invoiceDataValid;
+      }
+      
+      // Otherwise just check payment method and wantInvoice are valid
+      return !formState.errors.paymentMethod && !formState.errors.wantInvoice;
+    }, [wantInvoice, validateInvoiceData]); // Removed form.formState from dependencies
+
+    // Update form validation status whenever relevant fields change
+    // Use a ref to track changes and prevent infinite loops
+    const prevValuesRef = React.useRef({
+      wantInvoice,
+      paymentMethod,
+      invoiceData
+    });
+    
+    useEffect(() => {
+      // Skip validation if nothing important has changed to prevent infinite loops
+      const prevValues = prevValuesRef.current;
+      
+      // Deep compare important parts of invoiceData to detect real changes
+      let invoiceDataChanged = false;
+      if (wantInvoice === "yes") {
+        const fieldsToCheck = ['companyName', 'taxCode', 'address', 'email', 'phone'];
+        invoiceDataChanged = fieldsToCheck.some(field => 
+          prevValues.invoiceData?.[field] !== invoiceData?.[field]
+        );
+      }
+      
+      // Only validate if there are meaningful changes
+      if (prevValues.wantInvoice !== wantInvoice || 
+          prevValues.paymentMethod !== paymentMethod ||
+          invoiceDataChanged) {
+        const isValid = validateForm();
+        setFormIsValid(isValid);
+        
+        // Update the ref with current values
+        prevValuesRef.current = {
+          wantInvoice,
+          paymentMethod,
+          invoiceData
+        };
+      }
+    }, [wantInvoice, paymentMethod, invoiceData, validateForm]);
+
     // Expose the validate method to the parent component
     useImperativeHandle(ref, () => ({
       validate: async () => {
-        // If wantInvoice is "yes", validate invoice fields
-        if (form.getValues().wantInvoice === "yes") {
-          const result = await form.trigger(["wantInvoice", "paymentMethod", "invoiceData"]);
-          if (result && setData) {
-            setData(form.getValues());
-          }
-          return result;
-        } else {
-          // Otherwise, only validate the payment method
-          const result = await form.trigger(["wantInvoice", "paymentMethod"]);
-          if (result && setData) {
-            setData(form.getValues());
-          }
-          return result;
+        // Trigger validation on all fields
+        const valid = validateForm();
+        
+        if (valid && setData) {
+          setData(form.getValues());
         }
+        
+        // Nếu là thanh toán QR đã hoàn tất, gọi onPaymentCompleted nếu chưa được gọi
+        if (valid && paymentMethod === "qr" && paymentSuccess && onPaymentCompleted) {
+          onPaymentCompleted();
+        }
+        
+        // Nếu là thanh toán COD và form hợp lệ, không cần thêm xử lý đặc biệt
+        
+        return valid;
       }
     }));
 
@@ -111,6 +205,18 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
       }
     }, [data, form]);
 
+    // Initial validation when component mounts
+    useEffect(() => {
+      // If invoice is required, validate immediately
+      if (wantInvoice === "yes") {
+        const isValid = validateInvoiceData();
+        setFormIsValid(isValid);
+      } else {
+        // Otherwise, form is valid by default
+        setFormIsValid(true);
+      }
+    }, [wantInvoice, validateInvoiceData]);
+
     // Handle invoice option change
     const handleInvoiceOptionChange = (value: string) => {
       form.setValue("wantInvoice", value as "yes" | "no");
@@ -118,6 +224,12 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
       if (value === "no") {
         // Clear form data if "no" is selected
         form.setValue("invoiceData", {});
+        setFormErrors({});
+        setFormIsValid(true); // Form is valid when "no" is selected
+      } else if (value === "yes") {
+        // Immediately validate if "yes" is selected
+        const isValid = validateInvoiceData();
+        setFormIsValid(isValid);
       }
       
       if (setData) {
@@ -143,22 +255,45 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
     // Handle form input change
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
+      
+      // Update form data
       form.setValue(`invoiceData.${name}` as any, value);
       
+      // Update parent component if needed
       if (setData) {
         setData(form.getValues());
       }
+      
+      // Force immediate validation when input changes
+      const isValid = validateInvoiceData();
+      setFormIsValid(isValid);
+      
+      // Update the ref with current values to prevent double validation in useEffect
+      prevValuesRef.current = {
+        wantInvoice,
+        paymentMethod,
+        invoiceData: {
+          ...invoiceData,
+          [name]: value
+        }
+      };
     }
 
     // Handle QR code generation
     const handleGenerateQR = () => {
-      setShowQR(true)
-      setCountdown(9 * 60 + 30)
+      if (formIsValid) {
+        setShowQR(true)
+        setCountdown(9 * 60 + 30)
 
-      // Simulate payment success after 5 seconds (for demo purposes)
-      setTimeout(() => {
-        setPaymentSuccess(true)
-      }, 5000)
+        // Simulate payment success after 5 seconds (for demo purposes)
+        setTimeout(() => {
+          setPaymentSuccess(true)
+          // Notify parent component that payment is completed
+          if (onPaymentCompleted) {
+            onPaymentCompleted();
+          }
+        }, 5000)
+      }
     }
 
     // Format countdown time
@@ -191,56 +326,39 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
       }
     }
 
-    const wantInvoice = form.watch("wantInvoice");
-    const paymentMethod = form.watch("paymentMethod");
-    
-    // Helper function to safely get error messages
-    const getFieldError = (fieldName: keyof InvoiceFormData): string | undefined => {
-      const errors = form.formState.errors.invoiceData;
-      if (!errors || typeof errors !== 'object') return undefined;
-      
-      // Type assertion to access errors as a record
-      const fieldError = (errors as Record<string, any>)[fieldName];
-      return fieldError?.message as string | undefined;
-    };
-
     return (
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Order Information */}
         <div className="bg-[#F8FBFF] rounded-lg p-6">
           <h2 className="text-xl font-medium mb-6">{t("orderInformation")}</h2>
 
-          {mockOrderData.facilities.map((facility) => (
-            <div key={facility.id} className="mb-8">
+          {orderSummary.map((facility) => (
+            <div key={facility.facilityId} className="mb-8">
               <h3 className="text-[#0267AB] text-lg font-medium mb-4">
-                {t("facility")} {facility.name}:
+                {t("facility")} {facility.facilityLetter}:
               </h3>
-        
               <div className="space-y-3">
                 <div className="flex justify-between py-2">
                   <div>
-                    {t("devicesOrdered")} {facility.devices.label}
+                    <span className="text-[#686D72] text-[16] font-medium">{t("devicesOrdered")}</span>  <span className="text-[#252627] text-[20] font-semibold">x{facility.deviceCount} {t("device")}</span>
                   </div>
-                  <div className="font-medium">{facility.devices.price.toLocaleString()} VND</div>
+                  <div className="text-[#686D72] text-[20] font-semibold">{facility.devicePrice.toLocaleString()} VND</div>
                 </div>
-        
                 <div className="flex justify-between py-2">
                   <div>
-                    {t("package")}({facility.package.name}) {facility.package.duration}
+                    <span className="text-[#686D72] text-[16] font-medium">{t("package")} ({facility.packageName})</span>  <span className="text-[#252627] text-[20] font-semibold">x{facility.duration} {t("months")}</span>
                   </div>
-                  <div className="font-medium">{facility.package.price.toLocaleString()} VND</div>
+                  <div className="text-[#686D72] text-[20] font-semibold">{facility.servicePrice.toLocaleString()} VND</div>
                 </div>
-        
                 <div className="flex justify-between py-2">
                   <div>
-                    {t("vat")} {t("package")}
+                    <span className="text-[#686D72] text-[16] font-medium">{t("vat")}</span>  <span className="text-[#252627] text-[20] font-semibold">{t("package")}</span>
                   </div>
-                  <div className="font-medium">{facility.vat.toLocaleString()} VND</div>
+                  <div className="text-[#686D72] text-[20] font-semibold">{facility.vat.toLocaleString()} VND</div>
                 </div>
-        
                 <div className="flex justify-between py-2 border-t">
-                  <div>{t("subtotal")}</div>
-                  <div className="font-medium">{facility.total.toLocaleString()} VND</div>
+                  <div className="text-[#686D72] text-[16] font-medium">{t("subtotal")}</div>
+                  <div className="text-[#686D72] text-[20] font-semibold">{facility.total.toLocaleString()} VND</div>
                 </div>
               </div>
             </div>
@@ -248,14 +366,14 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
 
           <div className="flex justify-between py-4 border-t border-t-gray-400 text-lg font-bold text-[#0267AB]">
             <div>{t("grandTotal")}</div>
-            <div>{mockOrderData.grandTotal.toLocaleString()} VND</div>
+            <div>{grandTotal.toLocaleString()} VND</div>
           </div>
         </div>
-      
+
         {/* Payment Section */}
         <div className="bg-[#F8FBFF] rounded-lg p-6">
           <h2 className="text-xl font-medium mb-6">{t("payment")}</h2>
-      
+
           {/* Invoice Option */}
           <div className="mb-6">
             <label className="block mb-3 text-sm font-medium">
@@ -288,7 +406,7 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
               </div>
             </RadioGroup>
           </div>
-      
+
           {/* Invoice Form - Only shown if "yes" is selected */}
           {wantInvoice === "yes" && (
             <div className="space-y-4 mb-6">
@@ -304,11 +422,11 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   placeholder={t("enterCompanyName")}
                   required
                 />
-                {getFieldError("companyName") && (
-                  <div className="mt-1 text-sm text-red-500">{getFieldError("companyName")}</div>
+                {formErrors.companyName && (
+                  <div className="mt-1 text-sm text-red-500">{formErrors.companyName}</div>
                 )}
               </div>
-        
+
               <div>
                 <label htmlFor="taxCode" className="block mb-2 text-sm font-medium">
                   <span className="text-red-500 mr-1">*</span> {t("taxCode")}
@@ -321,11 +439,11 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   placeholder={t("enterTaxCode")}
                   required
                 />
-                {getFieldError("taxCode") && (
-                  <div className="mt-1 text-sm text-red-500">{getFieldError("taxCode")}</div>
+                {formErrors.taxCode && (
+                  <div className="mt-1 text-sm text-red-500">{formErrors.taxCode}</div>
                 )}
               </div>
-        
+
               <div>
                 <label htmlFor="address" className="block mb-2 text-sm font-medium">
                   <span className="text-red-500 mr-1">*</span> {t("address")}
@@ -338,11 +456,11 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   placeholder={t("enterAddress")}
                   required
                 />
-                {getFieldError("address") && (
-                  <div className="mt-1 text-sm text-red-500">{getFieldError("address")}</div>
+                {formErrors.address && (
+                  <div className="mt-1 text-sm text-red-500">{formErrors.address}</div>
                 )}
               </div>
-        
+
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium">
                   <span className="text-red-500 mr-1">*</span> {t("email")}
@@ -356,14 +474,14 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   placeholder={t("enterEmail")}
                   required
                 />
-                {getFieldError("email") && (
-                  <div className="mt-1 text-sm text-red-500">{getFieldError("email")}</div>
+                {formErrors.email && (
+                  <div className="mt-1 text-sm text-red-500">{formErrors.email}</div>
                 )}
               </div>
-        
+
               <div>
                 <label htmlFor="phone" className="block mb-2 text-sm font-medium">
-                  <span className="text-red-500 mr-1">*</span> {t("phoneNumber")}
+                  <span className="text-red-500 mr-1">*</span> {t("phone")}
                 </label>
                 <Input
                   id="phone"
@@ -371,16 +489,16 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   type="tel"
                   value={form.watch("invoiceData.phone") || ""}
                   onChange={handleInputChange}
-                  placeholder={t("enterPhoneNumber")}
+                  placeholder={t("enterPhone")}
                   required
                 />
-                {getFieldError("phone") && (
-                  <div className="mt-1 text-sm text-red-500">{getFieldError("phone")}</div>
+                {formErrors.phone && (
+                  <div className="mt-1 text-sm text-red-500">{formErrors.phone}</div>
                 )}
               </div>
             </div>
           )}
-        
+
           {/* Payment Method Selection */}
           <div className="mb-6">
             <label className="block mb-3 text-sm font-medium">
@@ -396,7 +514,7 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   />
                 </div>
                 <label htmlFor="payment-qr" className="text-sm font-medium cursor-pointer">
-                  {t("qrCode")}
+                  {t("qrPayment")}
                 </label>
               </div>
               <div className="flex items-center space-x-2">
@@ -408,7 +526,7 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
                   />
                 </div>
                 <label htmlFor="payment-cod" className="text-sm font-medium cursor-pointer">
-                  {t("cod")}
+                  {t("codPayment")}
                 </label>
               </div>
             </RadioGroup>
@@ -420,44 +538,50 @@ const PaymentForm = forwardRef<{ validate: () => Promise<boolean> }, PaymentForm
               <button
                 type="button"
                 onClick={handleGenerateQR}
-                className="px-8 py-2 bg-[#0267AB] text-white rounded-full hover:bg-[#035690] transition-colors"
+                className={`px-8 py-2 rounded-full transition-colors ${
+                  wantInvoice === "yes" && !formIsValid
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#0267AB] text-white hover:bg-[#035690]"
+                }`}
+                disabled={wantInvoice === "yes" && !formIsValid}
               >
                 {t("generateQR")}
               </button>
+              {wantInvoice === "yes" && !formIsValid && (
+                <p className="text-sm text-red-500 mt-2">{t("pleaseCompleteForm")}</p>
+              )}
             </div>
           )}
           
           {/* QR Code Display */}
           {paymentMethod === "qr" && showQR && (
-            <div className="text-center p-4 border rounded-lg">
+            <div className="p-4 border rounded-lg">
               {paymentSuccess ? (
                 <div className="flex flex-col items-center justify-center p-6 space-y-4">
-                  <div className="w-16 h-16 text-green-500">
-                    <CheckPaymentImg className="w-full h-full" />
+                  <div className="w-auto h-auto text-green-500">
+                    <CheckPaymentImg className="w-[180hug] h-[87hug]" />
                   </div>
-                  <p className="text-lg font-medium text-green-600">{t("paymentSuccess")}</p>
                 </div>
               ) : (
-                <>
-                  <div className="bg-white p-4 inline-block mb-4">
-                    {/* Mock QR code image */}
-                    <div className="w-48 h-48 bg-gray-200 mx-auto flex items-center justify-center">
-                      <p className="text-gray-600 text-sm">{t("qrCodePlaceholder")}</p>
+                <div className="flex flex-col md:flex-row items-center justify-start gap-8">
+                  <div className="bg-white p-6 rounded-lg inline-block mb-4 md:mb-0 shadow-sm">
+                    <Image src={QRImg} alt="QR Code" className="w-[200px] h-[200px]" />
+                  </div>
+                  <div className="bg-white p-4 rounded-[16px] shadow-lg flex justify-center text-center">
+                    <div>
+                      <div className="text-[#686D72] text-[16] font-medium">Thời gian còn</div>
+                      <div className="text-[#252627] text-[20] font-semibold">
+                        {Math.floor(countdown / 60)} phút {countdown % 60} giây
+                      </div>
                     </div>
                   </div>
-                  <p className="text-sm mb-2">
-                    {t("scanToComplete")}: <span className="font-bold">{mockOrderData.grandTotal.toLocaleString()} VND</span>
-                  </p>
-                  <p className="text-sm text-red-500">
-                    {t("qrExpires")}: {formatTime(countdown)}
-                  </p>
-                </>
+                </div>
               )}
             </div>
           )}
         </div>
       </form>
-    )
+    );
   }
 );
 

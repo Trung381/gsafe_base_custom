@@ -86,7 +86,7 @@ const CustomerRegistrationForm = forwardRef<{ validate: () => Promise<boolean> }
     }
 
     return (
-      <div className="bg-white rounded-lg p-6">
+      <div className="bg-white rounded-lg pt-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {/* Grid cho Email, Address, Phone, và Representative */}

@@ -21,7 +21,15 @@
     "enterTaxCode": "Nhập mã số thuế",
     "legalRepresentative": "Người đại diện pháp luật",
     "enterLegalRepresentative": "Nhập tên người đại diện pháp luật",
-    "next": "TIẾP"
+    "next": "TIẾP",
+    "back": "QUAY LẠI",
+    "complete": "HOÀN TẤT",
+    "steps": {
+      "customerInfo": "Thông tin khách hàng",
+      "branchInfo": "Thông tin cơ sở",
+      "serviceSelection": "Chọn gói dịch vụ",
+      "payment": "Thanh toán"
+    }
   },
   "nav": {
     "openLetter": "THƯ NGỎ",
@@ -183,6 +191,7 @@
     "deviceCount": "Số lượng thiết bị",
     "enterDeviceCount": "Nhập số lượng thiết bị",
     "addBranch": "Thêm cơ sở",
+    "removeBranch": "Xóa",
     "back": "QUAY LẠI",
     "next": "TIẾP"
   },
@@ -230,11 +239,11 @@
     "timeRemaining": "Thời gian còn",
     "paymentSuccess": "Thanh toán thành công",
     "back": "QUAY LẠI",
-    "complete": "HOÀN TẤT"
+    "complete": "HOÀN TẤT",
+    "months": "tháng",
+    "device": "sản phẩm",
+    "pleaseCompleteForm": "Điền form đi"
   },
-  "RegisTrationTitle": "Đăng ký dịch vụ",
-  
-  "Test chuyển đổi ngôn ngữ": "Kiểm tra chuyển đổi ngôn ngữ",
-  "hello": "Xin chào, đây là nội dung bằng tiếng Việt",
-  "welcome": "Chào mừng bạn đến với trang kiểm tra đa ngôn ngữ"
+  "registrationComplete": "Đăng ký hoàn tất! Bạn sẽ được chuyển hướng tới trang chủ...",
+  "RegistrationTitle": "Đăng ký dịch vụ"
 }

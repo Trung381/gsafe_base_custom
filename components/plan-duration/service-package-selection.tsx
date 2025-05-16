@@ -76,21 +76,25 @@ const ServicePackageSelection = forwardRef<{ validate: () => Promise<boolean> },
     const packages = [
       {
         id: "gsafe300",
+        price: 3600000,
         title: "GSafe 300",
         description: t("gsafe300Description"),
       },
       {
         id: "gsafe400",
+        price: 4800000,
         title: "GSafe 400",
         description: t("gsafe400Description"),
       },
       {
         id: "gsafe500",
+        price: 6000000,
         title: "GSafe 500",
         description: t("gsafe500Description"),
       },
       {
         id: "gsafesoc",
+        price: 2400000,
         title: "GSafe SOC",
         description: t("gsafesocDescription"),
       },
@@ -139,11 +143,13 @@ const ServicePackageSelection = forwardRef<{ validate: () => Promise<boolean> },
                 <RadioGroupItem
                   value="12"
                   id={`duration-12-${facilityLetter}`}
-                  className={
-                    selectedDuration === "12" ? "border-[#0267AB] text-[#0267AB]" : "border-[#CFD1D2] text-[#CFD1D2]"
-                  }
                 />
-                <label htmlFor={`duration-12-${facilityLetter}`} className="text-sm font-medium cursor-pointer">
+                <label 
+                  htmlFor={`duration-12-${facilityLetter}`} 
+                  className={`text-sm font-medium cursor-pointer ${
+                    selectedDuration === "12" ? "text-[#0267AB]" : "text-[#CFD1D2]"
+                  }`}
+                >
                   12 {t("months")}
                 </label>
               </div>
@@ -151,11 +157,13 @@ const ServicePackageSelection = forwardRef<{ validate: () => Promise<boolean> },
                 <RadioGroupItem
                   value="24"
                   id={`duration-24-${facilityLetter}`}
-                  className={
-                    selectedDuration === "24" ? "border-[#0267AB] text-[#0267AB]" : "border-[#CFD1D2] text-[#CFD1D2]"
-                  }
                 />
-                <label htmlFor={`duration-24-${facilityLetter}`} className="text-sm font-medium cursor-pointer">
+                <label 
+                  htmlFor={`duration-24-${facilityLetter}`} 
+                  className={`text-sm font-medium cursor-pointer ${
+                    selectedDuration === "24" ? "text-[#0267AB]" : "text-[#CFD1D2]"
+                  }`}
+                >
                   24 {t("months")}
                 </label>
               </div>
@@ -163,11 +171,13 @@ const ServicePackageSelection = forwardRef<{ validate: () => Promise<boolean> },
                 <RadioGroupItem
                   value="36"
                   id={`duration-36-${facilityLetter}`}
-                  className={
-                    selectedDuration === "36" ? "border-[#0267AB] text-[#0267AB]" : "border-[#CFD1D2] text-[#CFD1D2]"
-                  }
                 />
-                <label htmlFor={`duration-36-${facilityLetter}`} className="text-sm font-medium cursor-pointer">
+                <label 
+                  htmlFor={`duration-36-${facilityLetter}`} 
+                  className={`text-sm font-medium cursor-pointer ${
+                    selectedDuration === "36" ? "text-[#0267AB]" : "text-[#CFD1D2]"
+                  }`}
+                >
                   36 {t("months")}
                 </label>
               </div>

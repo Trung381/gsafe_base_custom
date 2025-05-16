@@ -4,6 +4,7 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect, createRef 
 import { useTranslations } from "next-intl"
 import BranchForm from "./branch-form"
 import Plus from "@/assets/icons/plus.svg"
+import Trash from "@/assets/icons/trash.svg"
 import * as z from "zod"
 
 // Define the branch schema
@@ -55,6 +56,26 @@ const BranchInformationForm = forwardRef<{ validate: () => Promise<boolean> }, B
       }));
     }
 
+    // Remove a branch by its index in the array
+    const removeBranch = (indexToRemove: number) => {
+      // Can't remove the first branch
+      if (indexToRemove === 0) return;
+      
+      // Remove branch from branches array
+      const newBranches = branches.filter((_, index) => index !== indexToRemove);
+      setBranches(newBranches);
+      
+      // Remove branch data from formValues
+      const newBranchesData = [...formValues.branches];
+      newBranchesData.splice(indexToRemove, 1);
+      setFormValues({ branches: newBranchesData });
+      
+      // Update parent data if available
+      if (setData) {
+        setData({ branches: newBranchesData });
+      }
+    }
+
     // Update a specific branch's data
     const updateBranchData = (index: number, data: BranchData) => {
       setFormValues(prev => {
@@ -94,7 +115,7 @@ const BranchInformationForm = forwardRef<{ validate: () => Promise<boolean> }, B
           setBranches(newBranches);
         }
       }
-    }, [data, branches.length]);
+    }, [data]); // Chỉ phụ thuộc vào data, xóa branches.length khỏi dependencies
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
@@ -104,26 +125,43 @@ const BranchInformationForm = forwardRef<{ validate: () => Promise<boolean> }, B
     }
 
     return (
-      <div className="bg-white rounded-lg p-6">
+      <div className="bg-white rounded-lg pt-6">
         <form onSubmit={handleSubmit}>
           {/* Branch Forms */}
           {branches.map((branchIndex, index) => (
-            <BranchForm 
-              key={branchIndex} 
-              index={branchIndex} 
-              letter={getLetter(index)} 
-              ref={branchFormRefs[index]}
-              data={formValues.branches[index]}
-              setData={(data) => updateBranchData(index, data)}
-            />
+            <div key={branchIndex} className="relative mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-[#0267AB]">
+                  {t("branch")} {getLetter(index)}:
+                </h3>
+                {index > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => removeBranch(index)}
+                    className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                  >
+                    <Trash className="w-5 h-5" />
+                    <span>{t("removeBranch")}</span>
+                  </button>
+                )}
+              </div>
+              <BranchForm 
+                index={branchIndex} 
+                letter={getLetter(index)} 
+                ref={branchFormRefs[index]}
+                data={formValues.branches[index]}
+                setData={(data) => updateBranchData(index, data)}
+                hideTitle={true}
+              />
+            </div>
           ))}
 
           {/* Add Branch Button */}
-          <div className="mb-8">
+          <div className="mb-5">
             <button
               type="button"
               onClick={addBranch}
-              className="inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full border border-[#0C9BEB] bg-[#0267AB] text-white hover:bg-white hover:text-[#0267AB] transition-colors group"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2 rounded-2xl border border-[#0C9BEB] bg-[#0267AB] text-white hover:bg-white hover:text-[#0267AB] transition-colors group"
             >
               <span className="inline-block w-5 h-6 text-white group-hover:text-[#0267AB]">
                 <Plus className="w-full h-full" />

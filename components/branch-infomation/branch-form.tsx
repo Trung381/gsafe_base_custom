@@ -13,10 +13,11 @@ interface BranchFormProps {
   letter: string
   data?: BranchData
   setData?: (data: BranchData) => void
+  hideTitle?: boolean
 }
 
 const BranchForm = forwardRef<{ validate: () => Promise<boolean> }, BranchFormProps>(
-  ({ index, letter, data = { branchName: "", branchPhone: "", branchAddress: "", deviceCount: "1" }, setData }, ref) => {
+  ({ index, letter, data = { branchName: "", branchPhone: "", branchAddress: "", deviceCount: "1" }, setData, hideTitle = false }, ref) => {
     const t = useTranslations("branchInfo")
 
     const form = useForm<BranchData>({
@@ -65,9 +66,11 @@ const BranchForm = forwardRef<{ validate: () => Promise<boolean> }, BranchFormPr
 
     return (
       <div className="mb-8">
-        <h3 className="text-[#0267AB] text-lg font-medium mb-4">
-          {t("branch")} {letter}
-        </h3>
+        {!hideTitle && (
+          <h3 className="text-[#0267AB] text-lg font-medium mb-4">
+            {t("branch")} {letter}
+          </h3>
+        )}
         <div className="bg-[#F8FBFF] p-6 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             {/* Branch Name */}

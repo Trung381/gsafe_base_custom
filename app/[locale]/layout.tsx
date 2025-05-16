@@ -1,6 +1,7 @@
 import {NextIntlClientProvider} from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { RegistrationProvider } from '@/contexts/RegistrationContext';
 
 export function generateStaticParams() {
   return [{locale: 'en'}, {locale: 'vi'}];
@@ -25,12 +26,14 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
   }
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <Header />
-      <main>
-        {props.children}
-      </main>
-      <Footer />
-    </NextIntlClientProvider>
+    <RegistrationProvider>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <Header />
+        <main>
+          {props.children}
+        </main>
+        <Footer />
+      </NextIntlClientProvider>
+    </RegistrationProvider>
   );
 } 

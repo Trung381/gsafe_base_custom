@@ -28,8 +28,10 @@ export default function SidebarMenu({ open, onClose, navLinks }: SidebarMenuProp
       open={open}
       onClose={onClose}
       width={280}
-      bodyStyle={{ padding: 0 }}
-      headerStyle={{ display: "none" }}
+      styles={{
+        body: { padding: 0 },
+        header: { display: "none" }
+      }}
       closable={false}
     >
       <div className="flex flex-col h-full bg-gray-50">
